@@ -38,6 +38,10 @@ func! ctrlp#grep#accept(mode, str) abort
   endif
 
   for l:marked in l:marked_list
-    call ctrlp#acceptfile(a:mode, l:marked)
+    let l:splited = split(l:marked, ':')
+    let l:file_path = splited[0]
+    let l:line_no = splited[1]
+    let l:x_position = splited[2]
+    call ctrlp#acceptfile(a:mode, l:file_path, l:line_no, l:x_position)
   endfor
 endfunc
