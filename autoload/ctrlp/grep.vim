@@ -39,9 +39,14 @@ func! ctrlp#grep#accept(mode, str) abort
 
   for l:marked in l:marked_list
     let l:splited = split(l:marked, ':')
-    let l:file_path = splited[0]
-    let l:line_no = splited[1]
-    let l:x_position = splited[2]
-    call ctrlp#acceptfile(a:mode, l:file_path, l:line_no, l:x_position)
+    if len(l:splited[0]) == 1
+      " Windows absolute path
+      let l:file_path = join(l:splited[0:1], ':')
+      let l:line_no = l:splited[2]
+    else
+      let l:file_path = l:splited[0]
+      let l:line_no = l:splited[1]
+    endif
+    call ctrlp#acceptfile(a:mode, l:file_path, l:line_no)
   endfor
 endfunc
