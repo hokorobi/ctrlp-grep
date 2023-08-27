@@ -16,9 +16,10 @@ call add(g:ctrlp_ext_vars, {
   \ })
 
 func! ctrlp#grep#run(...) abort
+  let l:cmd = get(g:, 'ctrlp_grep_command', 'grep -rins')
   let l:pattern = get(a:000, 0, expand('<cword>'))
   let l:dirs = a:0 > 1 ? join(a:000[1:-1]) : '.'
-  let s:result = system(g:ctrlp_grep_command . ' ' . l:pattern . ' ' . l:dirs)
+  let s:result = system(l:cmd . ' ' . l:pattern . ' ' . l:dirs)
   call ctrlp#init(ctrlp#grep#id())
 endfunc
 
